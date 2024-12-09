@@ -51,7 +51,8 @@ class BrowserCookie:
             return ""
         try:
             cookies = browser(domains=domains)
-            return "; ".join(f"{i["name"]}={i["value"]}" for i in cookies)
+            # return "; ".join(f"{i["name"]}={i["value"]}" for i in cookies)
+            return "; ".join(f"{i['name']}={i['value']}" for i in cookies)
         except RuntimeError:
             console.print("获取 Cookie 失败，未找到 Cookie 数据！")
         return ""

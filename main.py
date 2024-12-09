@@ -2,7 +2,7 @@ from asyncio import run
 from asyncio.exceptions import CancelledError
 from contextlib import suppress
 from sys import argv
-
+import asyncio
 from source import Settings
 from source import XHS
 from source import XHSDownloader
@@ -13,10 +13,10 @@ async def example():
     """通过代码设置参数，适合二次开发"""
     # 示例链接
     error_link = "https://github.com/JoeanAmier/XHS_Downloader"
-    demo_link = "https://www.xiaohongshu.com/explore/xxxxxxxxxx"
+    demo_link = "https://www.xiaohongshu.com/explore/675579fd000000000700eba7?xsec_token=ABf1BCGxU1gI7Q-w8wC3_IqdPRAgGXJRyEc8-fnJNGuhc=&xsec_source=pc_user"
     multiple_links = f"{demo_link} {demo_link} {demo_link}"
     # 实例对象
-    work_path = "D:\\"  # 作品数据/文件保存根路径，默认值：项目根路径
+    work_path = "D:\\xhs"  # 作品数据/文件保存根路径，默认值：项目根路径
     folder_name = "Download"  # 作品文件储存文件夹名称（自动创建），默认值：Download
     name_format = "作品标题 作品描述"
     user_agent = ""  # User-Agent
@@ -47,10 +47,10 @@ async def example():
         download = True  # 是否下载作品文件，默认值：False
         # 返回作品详细信息，包括下载地址
         # 获取数据失败时返回空字典
-        print(await xhs.extract(error_link, download, ))
+        # print(await xhs.extract(error_link, download, ))
         print(await xhs.extract(demo_link, download, index=[1, 2]))
         # 支持传入多个作品链接
-        print(await xhs.extract(multiple_links, download, ))
+        # print(await xhs.extract(multiple_links, download, ))
 
 
 async def app():
@@ -64,13 +64,15 @@ async def server(host="0.0.0.0", port=8000, log_level="info", ):
 
 
 if __name__ == '__main__':
-    with suppress(
-            KeyboardInterrupt,
-            CancelledError,
-    ):
-        if len(argv) == 1:
-            run(app())
-        elif argv[1] == "server":
-            run(server())
-        else:
-            cli()
+    # with suppress(
+    #         KeyboardInterrupt,
+    #         CancelledError,
+    # ):
+    #     # run(server())
+    #     if len(argv) == 1:
+    #         run(app())
+    #     elif argv[1] == "server":
+    #         run(server())
+    #     else:
+    #         cli()
+    asyncio.run(example())

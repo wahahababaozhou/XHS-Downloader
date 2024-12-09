@@ -35,29 +35,32 @@ class Update(ModalScreen):
     @work()
     async def check_update(self) -> None:
         try:
-            url = await self.xhs.html.request_url(RELEASES, False, None, timeout=5, )
+            url = await self.xhs.html.request_url(RELEASES, False, None, timeout=5)
             version = url.split("/")[-1]
             match self.compare_versions(f"{XHS.VERSION_MAJOR}.{XHS.VERSION_MINOR}", version, XHS.VERSION_BETA):
                 case 4:
-                    tip = Text(f"{self.message("检测到新版本：{0}.{1}").format(
-                        XHS.VERSION_MAJOR, XHS.VERSION_MINOR)}\n{RELEASES}", style=WARNING)
+                    tip = Text(f"{self.message('检测到新版本：{0}.{1}').format(XHS.VERSION_MAJOR, XHS.VERSION_MINOR)}\n{RELEASES}", style=WARNING)
                 case 3:
                     tip = Text(
-                        f"{self.message("当前版本为开发版, 可更新至正式版")}\n{RELEASES}",
-                        style=WARNING)
+                        f"{self.message('当前版本为开发版, 可更新至正式版')}\n{RELEASES}",
+                        style=WARNING
+                    )
                 case 2:
                     tip = Text(
-                        self.message("当前已是最新开发版"),
-                        style=WARNING)
+                        self.message('当前已是最新开发版'),
+                        style=WARNING
+                    )
                 case 1:
                     tip = Text(
-                        self.message("当前已是最新正式版"),
-                        style=INFO)
+                        self.message('当前已是最新正式版'),
+                        style=INFO
+                    )
                 case _:
                     raise ValueError
         except ValueError:
-            tip = Text(self.message("检测新版本失败"), style=ERROR)
+            tip = Text(self.message('检测新版本失败'), style=ERROR)
         self.dismiss(tip)
+
 
     def on_mount(self) -> None:
         self.check_update()

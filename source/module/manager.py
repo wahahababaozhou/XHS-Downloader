@@ -39,10 +39,11 @@ class Manager:
         '作者昵称',
         '作者ID',
     )
-    NO_PROXY = {
-        "http://": None,
-        "https://": None,
-    }
+    # NO_PROXY = {
+    #     "http://": None,
+    #     "https://": None,
+    # }
+    NO_PROXY = None
     SEPARATE = "_"
     WEB_ID = r"(?:^|; )webId=[^;]+"
     WEB_SESSION = r"(?:^|; )web_session=[^;]+"
@@ -194,15 +195,15 @@ class Manager:
             url="https://www.xiaohongshu.com/explore",
     ) -> dict:
         if not proxy:
-            return {"proxies": self.NO_PROXY}
+            return {"proxy": self.NO_PROXY}
         if isinstance(proxy, str):
             kwarg = {"proxy": proxy}
         elif isinstance(proxy, dict):
-            kwarg = {"proxies": proxy}
+            kwarg = {"proxy": proxy}
         else:
             self.proxy_tip = (
                 self.message("proxy 参数 {0} 设置错误，程序将不会使用代理").format(proxy), WARNING,)
-            return {"proxies": self.NO_PROXY}
+            return {"proxy": self.NO_PROXY}
         try:
             response = get(
                 url,

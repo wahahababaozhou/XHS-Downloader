@@ -54,28 +54,33 @@ class Index(Screen):
         yield ScrollableContainer(
             Label(
                 Text(
-                    f"{self.message("开源协议")}: {LICENCE}",
-                    style=MASTER)
+                    f"{self.message('开源协议')}: {LICENCE}",  # 修改双引号为单引号
+                    style=MASTER
+                )
             ),
             Label(
                 Text(
-                    f"{self.message("项目地址")}{REPOSITORY}",
-                    style=MASTER)
+                    f"{self.message('项目地址')}{REPOSITORY}",  # 修改双引号为单引号
+                    style=MASTER
+                )
             ),
             Label(
                 Text(
-                    self.message("请输入小红书图文/视频作品链接"),
-                    style=PROMPT), classes="prompt",
+                    self.message('请输入小红书图文/视频作品链接'),  # 修改双引号为单引号
+                    style=PROMPT
+                ),
+                classes="prompt",
             ),
-            Input(placeholder=self.message("多个链接之间使用空格分隔")),
+            Input(placeholder=self.message('多个链接之间使用空格分隔')),  # 修改双引号为单引号
             HorizontalScroll(
-                Button(self.message("下载无水印作品文件"), id="deal"),
-                Button(self.message("读取剪贴板"), id="paste"),
-                Button(self.message("清空输入框"), id="reset"),
+                Button(self.message('下载无水印作品文件'), id="deal"),  # 修改双引号为单引号
+                Button(self.message('读取剪贴板'), id="paste"),  # 修改双引号为单引号
+                Button(self.message('清空输入框'), id="reset"),  # 修改双引号为单引号
             ),
         )
-        yield RichLog(markup=True, )
+        yield RichLog(markup=True)
         yield Footer()
+
 
     def on_mount(self) -> None:
         self.title = PROJECT
@@ -84,9 +89,7 @@ class Index(Screen):
         self.tip.write(
             Text(
                 self.message("免责声明\n") +
-                f"\n{
-                ">" *
-                50}",
+                f"\n{'>' *50}",
                 style=MASTER), scroll_end=False,
         )
         self.xhs.manager.print_proxy_tip(log=self.tip, )
